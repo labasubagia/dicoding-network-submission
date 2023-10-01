@@ -4,10 +4,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y
 RUN apt-get install nodejs npm curl -y
 RUN apt-get install apache2 libapache2-mod-evasive -y
+RUN npm i -g pm2
 
 WORKDIR /app
 COPY  ./app .
-RUN npm i -g pm2
+RUN npm ci
 
 COPY ./docker/apache2/apache2.conf /etc/apache2/apache2.conf
 COPY ./docker/apache2/ports.conf /etc/apache2/ports.conf
