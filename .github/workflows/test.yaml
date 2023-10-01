@@ -1,0 +1,25 @@
+name: test
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: compose
+        uses: isbang/compose-action@v1.5.1
+        with:
+          compose-file: docker-compose.yaml
+      
+      - name: test nginx
+        run: curl 0.0.0.0:3000
+
+      - name: test apache2
+        run: curl 0.0.0.0:3001
